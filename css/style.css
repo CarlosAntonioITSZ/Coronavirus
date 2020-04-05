@@ -1,0 +1,184 @@
+:root{
+    --fondoPantalla: #253340;
+    --fecha: #B5B5B5;
+    --fondoCaja: #16202A;
+    --textoPrincipal: #FFFFFF;
+    --emojiCansado: #C6DC2B;
+    --emojiFeliz: #05C12B;
+    --emojiMuerto: #FF0E0E;
+    --fecha: #B5B5B5;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Helvetica,Arial;
+}
+
+body{
+    background-color: var(--fondoPantalla);
+}
+
+
+/*---------------Cabecera------------*/
+header{
+    background-color: var(--fondoCaja);
+    height: 90px;
+    width: 100%;
+}
+
+h1{
+    color: var(--textoPrincipal);
+    font-size: 40px;
+    line-height:90px;  
+    padding-left: 20px; 
+}
+/*-------------------------------*/
+
+
+
+/*---------------Cajas------------*/
+
+#contenedor{
+    display: grid;
+    width: 96%;
+    margin: 0px auto;
+    grid-template-columns: 400px 400px 400px;
+    grid-template-rows: 250px 250px;
+    grid-template-areas:  
+    "primera segunda tercera"
+    "cuarta quinta sexta";
+
+    grid-gap: 20px;
+    justify-content: center;
+
+    margin-top: 30px;
+}
+
+.caja{
+    background-color: var(--fondoCaja);
+}
+
+#mundo{
+    grid-area: primera;
+}
+#mx{
+    grid-area: segunda;
+}
+
+#eu{
+    grid-area: tercera;
+}
+#es{
+    grid-area: cuarta;
+}
+#it{
+    grid-area: quinta;
+}
+
+#ch{
+    grid-area: sexta;
+
+}
+
+/*-------------------------------*/
+
+
+/*-----------------TEXTOS-------------*/
+h2{
+    color: var(--textoPrincipal);
+    font-size: 28px;
+    font-weight: bold;
+}
+
+p{
+    color: var(--textoPrincipal);
+}
+
+.fecha{
+    color: var(--fecha);
+}
+/*-------------------------------*/
+
+
+/*-----------------EMOJIS-------------*/
+.feliz{
+    color: var(--emojiFeliz);
+}
+.cansado{
+    color: var(--emojiCansado);
+}
+.muerto{
+    color: var(--emojiMuerto);
+}
+/*-------------------------------*/
+
+/*-------------TEXTOS CAJAS-------------*/
+
+.pais{
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 60px;
+    grid-template-areas:  
+    "icono nombre numero";
+    margin-top: 10px;
+}
+
+.pais i{
+    grid-area: icono;
+    font-size: 55px;
+    color: rgb(0, 128, 255);
+    padding-top: 5px;
+    padding-left: 10px;
+    margin-top: -4px;
+    margin-left: 5px;
+}
+
+.pais img{
+    grid-area: icono;
+    color: rgb(0, 128, 255);
+    margin: 5px;
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    -ms-border-radius: 100px;
+    -o-border-radius: 100px;
+}
+.pais .nombre{
+    grid-area: nombre;
+    padding-top: 5px;
+}
+
+
+ 
+.pais .numero{
+    grid-area: numero;
+    align-self: center;
+    justify-self: end;
+    padding: 15px;
+    padding-top: 0px;
+}
+
+.informacion{
+    font-size: 20px;
+    margin-top: 20px;
+}
+.parrafos{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.informacion i{
+    margin-left: 15px;
+}
+
+.informacion p{
+    margin-left: 10px;
+}
+
+/*-------------------------------*/
