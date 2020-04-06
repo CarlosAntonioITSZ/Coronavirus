@@ -1,6 +1,7 @@
 //Variables
 const nombreFecha = document.getElementsByClassName('nombre');
-const datos =   document.getElementsByClassName('parrafos');
+const datos = document.getElementsByClassName('datos');
+const ranking = document.getElementsByClassName('numero');
 
 //Listeners
 EventsListeners();
@@ -9,7 +10,7 @@ function EventsListeners() {
 }
 
 //Evenros
-function cargarInformacion(){
+function cargarInformacion() {
     cargarFecha();
     cargarDatos();
 }
@@ -33,112 +34,185 @@ function cargarFecha() {
 
     let agregarFecha = Array.from(nombreFecha);
 
-    agregarFecha.forEach(function(caja){
-    //Creamos un parrafo para añadirlo al HTML
-    const parrafoFecha = document.createElement('p');
-    //Añadimos la clase fecha a nuestro parrafo
-    parrafoFecha.classList = 'fecha';
-    //Añadimos la fecha obtenida a nuestro parrafo
-    parrafoFecha.innerHTML = fecha;
-    //Añadimos nuestro parrafo al DOM
-    caja.appendChild(parrafoFecha);
+    agregarFecha.forEach(function (caja) {
+        //Creamos un parrafo para añadirlo al HTML
+        const parrafoFecha = document.createElement('p');
+        //Añadimos la clase fecha a nuestro parrafo
+        parrafoFecha.classList = 'fecha';
+        //Añadimos la fecha obtenida a nuestro parrafo
+        parrafoFecha.innerHTML = fecha;
+        //Añadimos nuestro parrafo al DOM
+        caja.appendChild(parrafoFecha);
     });
 }
 
-function cargarDatos(){
+function cargarDatos() {
 
     obtenerDatosMundial();
-    obtenerDatosMundial2();
+    obtenerDatosMX();
+    obtenerDatosUS();
+    obtenerDatosES();
+    obtenerDatosIT();
+    obtenerDatosCN();
 }
 
-function obtenerDatosMundial(){
+function obtenerDatosMundial() {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET','https://api.thevirustracker.com/free-api?global=stats',true);
-    xhr.onload = function(){
-        if(this.status === 200 ){
+    xhr.open('GET', 'https://api.thevirustracker.com/free-api?global=stats', true);
+    xhr.onload = function () {
+        if (this.status === 200) {
             const mundo = JSON.parse(this.responseText);
 
-            //Casos confirmados
-            //Creamos un nuevo parrafo
-            const confirmados = document.createElement('p');
-            //Accedemos al dato de la API
-            const numeroConfirmados = `${mundo.results[0].total_cases}`;
-            //El valor que obtivimos lo guardamos en el parrafo
-            confirmados.innerHTML = numeroConfirmados;
-            //Insertamos al DOM todoMundo[n].childer[1] donde n
-            //es el numero de parrafos, cada pais tiene 3 parrafos
-            datos[0].insertBefore(confirmados, datos[0].children[1]);
+            const confirmados = formatNumber.new(mundo.results[0].total_cases);
+            datos[0].innerHTML = `${confirmados}`;
 
-            //Casos recuperados
-            //Creamos un nuevo parrafo
-            const recuperados = document.createElement('p');
-            //Accedemos al dato de la API
-            const numeroRecuperados = `${mundo.results[0].total_recovered}`;
-            //El valor que obtivimos lo guardamos en el parrafo
-            recuperados.innerHTML = numeroRecuperados;
-            //Insertamos al DOM datos[n].childer[1] donde n
-            //es el numero de parrafos, cada pais tiene 3 parrafos
-            datos[1].insertBefore(recuperados, datos[1].children[1]);
+            const recuperados = formatNumber.new(mundo.results[0].total_recovered);
+            datos[1].innerHTML = `${recuperados}`;
 
-            //Casos muertes
-            //Creamos un nuevo parrafo
-            const muertes = document.createElement('p');
-            //Accedemos al dato de la API
-            const numeroMuertes = `${mundo.results[0].total_deaths}`;
-            //El valor que obtivimos lo guardamos en el parrafo
-            muertes.innerHTML = numeroMuertes;
-            //Insertamos al DOM datos[n].childer[1] donde n
-            //es el numero de parrafos, cada pais tiene 3 parrafoss
-            datos[2].insertBefore(muertes, datos[2].children[1]);
+            const muertos = formatNumber.new(mundo.results[0].total_deaths);
+            datos[2].innerHTML = `${muertos}`;
         }
     }
     xhr.send();
 }
 
-
-function obtenerDatosMundial2(){
+function obtenerDatosMX() {
     const xhr = new XMLHttpRequest();
 
-    xhr.open('GET','https://api.thevirustracker.com/free-api?countryTotal=MX',true);
-    xhr.onload = function(){
-        if(this.status === 200 ){
+    xhr.open('GET', 'https://api.thevirustracker.com/free-api?countryTotal=MX', true);
+
+    xhr.onload = function () {
+        if (this.status === 200) {
             const mx = JSON.parse(this.responseText);
 
-            //Casos confirmados
-            //Creamos un nuevo parrafo
-            const confirmados = document.createElement('p');
-            //Accedemos al dato de la API
-            const numeroConfirmados = `${mx.countrydata[0].total_cases}`;
-            //El valor que obtivimos lo guardamos en el parrafo
-            confirmados.innerHTML = numeroConfirmados;
-            //Insertamos al DOM datos[n].childer[1] donde n
-            //es el numero de parrafos, cada pais tiene 3 parrafos
-            datos[3].insertBefore(confirmados, datos[3].children[1]);
+            const confirmados = formatNumber.new(mx.countrydata[0].total_cases);
+            datos[3].innerHTML = `${confirmados}`;
 
-            //Casos recuperados
-            //Creamos un nuevo parrafo
-            const recuperados = document.createElement('p');
-            //Accedemos al dato de la API
-            const numeroRecuperados = `${mx.countrydata[0].total_recovered}`;
-            //El valor que obtivimos lo guardamos en el parrafo
-            recuperados.innerHTML = numeroRecuperados;
-            //Insertamos al DOM datos[n].childer[1] donde n
-            //es el numero de parrafos, cada pais tiene 3 parrafos
-            datos[4].insertBefore(recuperados, datos[4].children[1]);
+            const recuperados = formatNumber.new(mx.countrydata[0].total_recovered);
+            datos[4].innerHTML = `${recuperados}`;
 
-            //CMuertes
-            //Creamos un nuevo parrafo
-            const muertes = document.createElement('p');
-            //Accedemos al dato de la API
-            const numeroMuertes = `${mx.countrydata[0].total_deaths}`;
-            //El valor que obtivimos lo guardamos en el parrafo
-            muertes.innerHTML = numeroMuertes;
-            //Insertamos al DOM datos[n].childer[1] donde n
-            //es el numero de parrafos, cada pais tiene 3 parrafos
-            datos[5].insertBefore(muertes, datos[5].children[1]);
+            const muertos = formatNumber.new(mx.countrydata[0].total_deaths);
+            datos[5].innerHTML = `${muertos}`;
+
+            ranking[0].innerHTML = `#${mx.countrydata[0].total_danger_rank}`;
         }
     }
     xhr.send();
 }
 
+function obtenerDatosUS() {
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'https://api.thevirustracker.com/free-api?countryTotal=US', true);
+
+    xhr.onload = function () {
+        if (this.status === 200) {
+            const us = JSON.parse(this.responseText);
+
+            const confirmados = formatNumber.new(us.countrydata[0].total_cases);
+            datos[6].innerHTML = `${confirmados}`;
+
+            const recuperados = formatNumber.new(us.countrydata[0].total_recovered);
+            datos[7].innerHTML = `${recuperados}`;
+
+            const muertos = formatNumber.new(us.countrydata[0].total_deaths);
+            datos[8].innerHTML = `${muertos}`;
+
+            ranking[1].innerHTML = `#${us.countrydata[0].total_danger_rank}`;
+        }
+    }
+    xhr.send();
+}
+
+function obtenerDatosES() {
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'https://api.thevirustracker.com/free-api?countryTotal=ES', true);
+
+    xhr.onload = function () {
+        if (this.status === 200) {
+            const es = JSON.parse(this.responseText);
+
+            const confirmados = formatNumber.new(es.countrydata[0].total_cases);
+            datos[9].innerHTML = `${confirmados}`;
+
+            const recuperados = formatNumber.new(es.countrydata[0].total_recovered);
+            datos[10].innerHTML = `${recuperados}`;
+
+            const muertos = formatNumber.new(es.countrydata[0].total_deaths);
+            datos[11].innerHTML = `${muertos}`;
+
+            ranking[2].innerHTML = `#${es.countrydata[0].total_danger_rank}`;
+        }
+    }
+    xhr.send();
+}
+
+function obtenerDatosIT() {
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'https://api.thevirustracker.com/free-api?countryTotal=IT', true);
+
+    xhr.onload = function () {
+        if (this.status === 200) {
+            const it = JSON.parse(this.responseText);
+
+            const confirmados = formatNumber.new(it.countrydata[0].total_cases);
+            datos[12].innerHTML = `${confirmados}`;
+
+            const recuperados = formatNumber.new(it.countrydata[0].total_recovered);    
+            datos[13].innerHTML = `${recuperados}`;
+
+            const muertos = formatNumber.new(it.countrydata[0].total_deaths);    
+            datos[14].innerHTML = `${muertos}`;
+
+            ranking[3].innerHTML = `#${it.countrydata[0].total_danger_rank}`;
+        }
+    }
+    xhr.send();
+}
+
+function obtenerDatosCN() {
+    const xhr = new XMLHttpRequest();
+
+    xhr.open('GET', 'https://api.thevirustracker.com/free-api?countryTotal=CN', true);
+
+    xhr.onload = function () {
+        if (this.status === 200) {
+            const cn = JSON.parse(this.responseText);
+
+            const confirmados = formatNumber.new(cn.countrydata[0].total_cases); 
+            datos[15].innerHTML = `${confirmados}`;
+
+            const recuperados = formatNumber.new(cn.countrydata[0].total_recovered); 
+            datos[16].innerHTML = `${recuperados}`;
+
+            const muertos = formatNumber.new(cn.countrydata[0].total_deaths); 
+            datos[17].innerHTML = `${muertos}`;
+
+            ranking[4].innerHTML = `#${cn.countrydata[0].total_danger_rank}`;
+        }
+    }
+    xhr.send();
+}
+
+const formatNumber = {
+    separador: ".", // separador para los miles
+    sepDecimal: ',', // separador para los decimales
+    formatear:function (num){
+    num +='';
+    var splitStr = num.split('.');
+    var splitLeft = splitStr[0];
+    var splitRight = splitStr.length > 1 ? this.sepDecimal + splitStr[1] : '';
+    var regx = /(\d+)(\d{3})/;
+    while (regx.test(splitLeft)) {
+    splitLeft = splitLeft.replace(regx, '$1' + this.separador + '$2');
+    }
+    return this.simbol + splitLeft +splitRight;
+    },
+    new:function(num, simbol){
+    this.simbol = simbol ||'';
+    return this.formatear(num);
+    }
+   }

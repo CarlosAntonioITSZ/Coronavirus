@@ -6,7 +6,6 @@
     --emojiCansado: #C6DC2B;
     --emojiFeliz: #05C12B;
     --emojiMuerto: #FF0E0E;
-    --fecha: #B5B5B5;
 }
 
 *{
@@ -14,18 +13,36 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Helvetica,Arial;
+    text-decoration: none;
+
 }
 
 body{
     background-color: var(--fondoPantalla);
 }
 
+.enlace:link{
+    color: var(--fecha);
+}
+
+#principal{
+    display: grid;
+    grid-row: 10% 80% 10%;
+    grid-column: 100%;
+    grid-template-areas: 
+    'cabecera'
+    'contenido'
+    'footer';
+
+    height: 100vh;
+}
 
 /*---------------Cabecera------------*/
 header{
     background-color: var(--fondoCaja);
     height: 90px;
     width: 100%;
+    grid-area: cabecera;
 }
 
 h1{
@@ -41,6 +58,8 @@ h1{
 /*---------------Cajas------------*/
 
 #contenedor{
+    grid-area: contenido;
+
     display: grid;
     width: 96%;
     height: auto;
@@ -186,6 +205,26 @@ p{
 
 /*-------------------------------*/
 
+/*------------FOOTER-------------*/
+footer{
+    margin-top: 20px;
+    height: 80px;
+    width: 100%;
+    background-color: var(--fondoCaja);
+    color: var(--fecha);
+    font-size: 15px;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    grid-area: footer;
+    align-self: end;
+
+}
+
+
+
+/*-------------------------------*/
+
 
 /*-------------RESPONSIVE-------------*/
 
@@ -316,3 +355,4 @@ p{
     }
 }
 /*-------------------------------*/
+
